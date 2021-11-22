@@ -1,0 +1,255 @@
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #F1FAEE;
+        font-family: MainFont;
+    }
+
+    @font-face {
+        font-family: MainFont;
+        src: url("./fonts/Montserrat-Light.ttf");
+    }
+
+    .start {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+    }
+
+    .starteffect {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        filter: blur(0px);
+    }
+
+    .startlogo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform:translate(-50%, -50%);
+        max-width: 200px;
+    }
+
+    .startbg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .starttxt {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform:translate(-50%, -50%);
+        margin: 0;
+        font-size: 30px;
+        color: white;
+    }
+
+    .starttxt > strong {
+        color: #E63946;
+    }
+
+    .startbtm {
+        width: 70px;
+        height: 30px;
+        background-color: #F1FAEE;
+        position: absolute;
+        bottom: -1px;
+        left: 50%;
+        transform:translateX(-50%);
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    .navbar {
+        transition: all 0.3s ease;
+        border-radius: 4px;
+        overflow: hidden;
+        position: fixed;
+        z-index: 5;
+        left: 20px;
+        top: 20px;
+        width: calc(100% - 40px);
+        height: 50px;
+        background-color: #457b9d70;
+        backdrop-filter: blur(10px);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+    }
+
+    .navbartop {
+        transition: all 0.3s ease;
+        border-radius: 4px;
+        overflow: hidden;
+        position: fixed;
+        z-index: 5;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 50px;
+        background-color: #f3f3f300;
+        backdrop-filter: blur(0px);
+        /* border-bottom-style: solid; */
+        border-width: 1px;
+        border-color: rgb(10, 10, 10);
+        /* box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px; */
+    }
+
+    .navbardesign {
+        top: 0;
+        clip-path: polygon(10% 0, 100% 0, 100% 100%, 10% 100%, 20% 50%);
+        width: 200px;
+        height: 100%;
+        background-color: #E63946;
+        position: absolute;
+        right: 0;
+    }
+
+    .navbardesign > img {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+    }
+
+    .usertxt {
+        position: absolute;
+        left: 0;
+        width: calc(100% - 50px);
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .usertxt > p {
+        position: absolute;
+        margin: 0;
+        top: 25px;
+        transform:translate(-50%, -50%);
+        left: 50%;
+        color: white;
+        font-weight: 100;
+        white-space: nowrap;
+        font-size: 10px;
+    }
+
+    .fadegr {
+        background: linear-gradient(0deg, rgba(0,0,0,0.16039919385723034) 0%, rgba(0, 0, 0, 0.486) 100%);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .navoptcont {
+        width: fit-content;
+        height: 100%;
+        min-width: 20px;
+        display: flex;
+    }
+
+    .navopt {
+        position: relative;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .navopt > div {
+        overflow: hidden;
+        opacity: 0;
+        width: 100%;
+        height: 0;
+        left: 0;
+        top: 0;
+        position: absolute;
+        transition: all 0.3s;
+    }
+
+    .navopt > div > img {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 25px;
+        transform:translate(-50%, -50%);
+        left: 50%;
+    }
+
+    .navopt:hover > div {
+        width: 100%;
+        height: 100%;
+        background-color: #457b9d;
+        opacity: 1;
+    }
+
+    .navopt > p {
+        user-select: none;
+        font-size: 12px;
+        margin: 0;
+        color: white;
+        margin-top: 25px;
+        transform:translateY(-50%);
+    }
+
+    .isect {
+       width: calc(100% - 20px);
+       padding: 10px;
+    }
+    .icardttl {
+        font-size: 30px;
+        color: rgb(216, 109, 109);
+        text-align: center;
+    }
+</style>
+
+<div class="navbartop" id="navbar">
+    <div class="navoptcont">
+        <div class="navopt"><p>HOME</p><div><img src="./images/house.png"></div></div>
+        <div class="navopt"><p>ANUNTURI</p><div><img src="./images/announcer.png"></div></div>
+        <div class="navopt"><p>PROIECTE</p><div><img src="./images/intelligence.png"></div></div>
+    </div>
+    
+    <div class="navbardesign">
+        <img src="./images/user.png">
+        <div class="usertxt"><p>Udrea Alin</p></div>
+    </div>
+</div>
+
+<div class="start">
+    <canvas class="starteffect" id="starteff">
+    </canvas>
+
+    <!-- <img class="startbg" src="./images/bg.jpg""> -->
+    <div class="fadegr"></div>
+    <p class="starttxt">Happy<strong>Camps</strong></p>
+    <div class="startbtm"></div>
+    <!-- <img class="startlogo" src="./images/Logo.png"> -->
+</div>
+
+<div class="isect">
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+    <p class="icardttl">Tabere pentru copiii de la 4 ani la 18+</p>
+</div>
+
+<script src="./scripts/NavbarScript.js"></script>
+<script src="./scripts/CustomEffect.js"></script>
