@@ -105,10 +105,27 @@ class BgStart extends EffectEntity {
     }
 }
 
+class BgStartGradient extends BgStart {
+    constructor(c1, c2) {
+        super(c1);
+        this.color2 = c2;
+    }
+
+    Draw(ctx, canvas) {
+        if (this.done) return;
+
+        var gradient = new CanvasGradient
+
+        ctx.fillStyle = this.color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        this.done = true;
+    }
+}
+
 class RandomFractile extends EffectEntity {
     constructor(x = 0, y = 0, color = "white") {
         super();
-        this.cellSize = 10;
+        this.cellSize = RF_CellSize;
         this.x = x * this.cellSize;
         this.y = y * this.cellSize;
         this.dirX = 1;
@@ -118,7 +135,8 @@ class RandomFractile extends EffectEntity {
         this.ly = this.y;
         this.color = color;
         this.rainbow = false;
-
+        this.dirTime = RF_DirTime;
+        
         var that = this;
 
         window.addEventListener('keydown', function(e) {that.Key(e)});
@@ -135,19 +153,38 @@ class RandomFractile extends EffectEntity {
     Update(canvas) {
         this.time++;
         if (this.time < 2) return;
-
         this.time = 0;
+
+        for (var i = 0; i < RF_MoveSteps; i++) this.Move(canvas);
+    }
+
+    Move(canvas) {
         this.lx = this.x;
         this.ly = this.y;
         this.x += this.dirX * this.cellSize;
         this.y += this.dirY * this.cellSize;
         if (this.rainbow) this.RandomColor();
 
-        if (this.x < this.cellSize * 3) this.x = this.cellSize * 3
-        else if (this.x > canvas.width - this.cellSize * 3) this.x = canvas.width - this.cellSize * 3
+        if (this.x < this.cellSize * 0) this.x = this.cellSize * 0
+        else if (this.x > canvas.width - this.cellSize * 0) this.x = canvas.width - this.cellSize * 0
 
-        if (this.y < this.cellSize * 3) this.y = this.cellSize * 3;
-        else if (this.y > canvas.height - this.cellSize * 3) this.y = canvas.height - this.cellSize * 3
+        if (this.y < this.cellSize * 0) this.y = this.cellSize * 0;
+        else if (this.y > canvas.height - this.cellSize * 0) this.y = canvas.height - this.cellSize * 0
+
+        this.RandomDir();
+
+        if (this.ctx == undefined) this.ctx = canvas.getContext("2d");
+        this.DrawL(this.ctx);
+    }
+
+    RandomDir() {
+        if (this.dirTime > 0) {
+            this.dirTime--;
+            return;
+        }
+
+        this.dirTime = RF_DirTime;
+
 
         var d = Math.floor(Math.random() * 4);
         if (d % 2 == 0) {
@@ -179,7 +216,7 @@ class RandomFractile extends EffectEntity {
         }
     }
 
-    Draw(ctx) {
+    DrawL(ctx) {
         ctx.strokeStyle = this.color;
     
         ctx.beginPath();
@@ -189,14 +226,20 @@ class RandomFractile extends EffectEntity {
     }
 }
 
+const RF_CellSize = 10;
+const RF_DirTime = 0;
+const RF_Amount = 30;
+const RF_MoveSteps = 2;
+
 const startEffect = new CustomEffect("starteff");
-startEffect.AddEntity(new BgStart("black"));
+startEffect.AddEntity(new BgStartGradient("#eeeeee", "red"));
 
-var maxX = startEffect.element.width / 10;
-var maxY = startEffect.element.height / 10;
+var maxX = startEffect.element.width / RF_CellSize;
+var maxY = startEffect.element.height / RF_CellSize;
 
-for (var i = 0; i < 10; i++) {
-    var x = Math.floor(Math.random() * maxX);
+for (var i = 0; i < RF_Amount; i++) {
+    // var x = Math.floor(Math.random() * maxX);
+    var x = 0;
     var y = Math.floor(Math.random() * maxY);
 
     var eff = new RandomFractile(x, y);
